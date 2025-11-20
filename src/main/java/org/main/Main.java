@@ -1,13 +1,12 @@
 package org.main;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		List<Merchandise> listOfMerchandises = new ArrayList<>();
+		ArrayList<Merchandise> listOfMerchandises = DBImitatiom.loadArrayList("src/main/resources/DataBaseImitation");
 		boolean flag = true;
 
 		while (flag) {
@@ -15,6 +14,7 @@ public class Main {
 			flag = UserMenu.menuButtons(listOfMerchandises,scanner);
 		}
 
+		DBImitatiom.saveArrayList(listOfMerchandises, "src/main/resources/DataBaseImitation");
 		scanner.close();
 	}
 }

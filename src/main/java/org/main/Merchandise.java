@@ -1,8 +1,9 @@
 package org.main;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Merchandise {
+public class Merchandise implements Serializable {
 	private String name;
 	private double price;
 	private String brand;
