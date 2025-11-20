@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class DBImitatiom {
-	public static void saveArrayList(ArrayList<Merchandise> list, String filename) {
+	public static void saveArrayList(ArrayList<?> list, String filename) {
 		try (ObjectOutputStream oos = new ObjectOutputStream(
 				new FileOutputStream(filename))) {
 			oos.writeObject(list);
@@ -15,10 +15,10 @@ public class DBImitatiom {
 
 	}
 
-	public static ArrayList<Merchandise> loadArrayList(String filename) {
+	public static ArrayList<?> loadArrayList(String filename) {
 		try (ObjectInputStream ois = new ObjectInputStream(
 				new FileInputStream(filename))) {
-			return (ArrayList<Merchandise>) ois.readObject();
+			return (ArrayList<?>) ois.readObject();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 			return new ArrayList<>();
