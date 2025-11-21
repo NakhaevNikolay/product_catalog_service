@@ -2,6 +2,9 @@ package org.main;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+
+import static org.main.Main.LOGGER;
 
 public class UserMenu {
 	public static boolean menuButtons(List<Merchandise> listOfMerchandises, Scanner scanner, User currentUser) {
@@ -27,7 +30,7 @@ public class UserMenu {
 				break;
 			case 0:
 				flag = false;
-				LogWriter.appendToFile("src/main/resources/userLog", " вышел из системы ", currentUser);
+				LOGGER.log(Level.INFO,"Пользователь " + currentUser.getNickName() + " вышел из системы");
 				break;
 			default:
 				System.out.println("Error");
@@ -54,7 +57,7 @@ public class UserMenu {
 					if (user.getPassword().equals(password) && user.getNickName().equals(nickName)) {
 						System.out.println("Авторизация успешна!");
 						currentUser = user;
-						LogWriter.appendToFile("src/main/resources/userLog", " вошёл в систему ", currentUser);
+						LOGGER.log(Level.INFO,"Пользователь " + currentUser.getNickName() + " вошёл в систему");
 						break;
 					}
 				}
@@ -87,7 +90,7 @@ public class UserMenu {
 				}
 				currentUser = new User(nickName, password);
 				listOfUsers.add(currentUser);
-				LogWriter.appendToFile("src/main/resources/userLog"," зарегистрировался ", currentUser);
+				LOGGER.log(Level.INFO,"Пользователь " + currentUser.getNickName() + " зарегистрировался");
 				break;
 		}
 		return currentUser;
