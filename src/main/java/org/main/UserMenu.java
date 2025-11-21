@@ -4,20 +4,20 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserMenu {
-	public static boolean menuButtons(List<Merchandise> listOfMerchandises, Scanner scanner) {
+	public static boolean menuButtons(List<Merchandise> listOfMerchandises, Scanner scanner, User currentUser) {
 		boolean flag = true;
 		int input = scanner.nextInt();
 		scanner.nextLine();
 
 		switch (input) {
 			case 1:
-				UserDisplay.userViewAddMerchandise(listOfMerchandises, scanner);
+				UserDisplay.userViewAddMerchandise(listOfMerchandises, scanner, currentUser);
 				break;
 			case 2:
-				UserDisplay.userViewDeleteMerchandise(listOfMerchandises, scanner);
+				UserDisplay.userViewDeleteMerchandise(listOfMerchandises, scanner, currentUser);
 				break;
 			case 3:
-				UserDisplay.userViewChangeMerchandise(listOfMerchandises, scanner);
+				UserDisplay.userViewChangeMerchandise(listOfMerchandises, scanner, currentUser);
 				break;
 			case 4:
 				UserDisplay.userViewFindMerchandise(listOfMerchandises, scanner);
@@ -27,6 +27,7 @@ public class UserMenu {
 				break;
 			case 0:
 				flag = false;
+				LogWriter.appendToFile("src/main/resources/userLog", " вышел из системы ", currentUser);
 				break;
 			default:
 				System.out.println("Error");
@@ -35,8 +36,8 @@ public class UserMenu {
 		return flag;
 	}
 
-	public static boolean menuLogin(List<User> listOfUsers, Scanner scanner) {
-		boolean flag = true;
+	public static User menuLogin(List<User> listOfUsers, Scanner scanner) {
+		User currentUser = new User("admin", "admin");
 		boolean n = false;
 		String nickName;
 		String password;
@@ -52,17 +53,22 @@ public class UserMenu {
 				for (User user : listOfUsers) {
 					if (user.getPassword().equals(password) && user.getNickName().equals(nickName)) {
 						System.out.println("Авторизация успешна!");
-						flag = false;
+						currentUser = user;
+						LogWriter.appendToFile("src/main/resources/userLog", " вошёл в систему ", currentUser);
 						break;
 					}
 				}
-				if (flag) {
+				if (currentUser.getNickName().equals("admin")) {
 					System.out.println("Ошибка!");
 				}
 				break;
 			case 2:
 				System.out.print("Придумайте логин: ");
 				nickName = scanner.nextLine();
+				if (nickName.equals("admin")) {
+					System.out.println("Ошибка!");
+					break;
+				}
 				for (User user : listOfUsers) {
 					if (user.getNickName().equals(nickName)) {
 						System.out.println("Такой логин уже существует!");
@@ -79,11 +85,12 @@ public class UserMenu {
 					System.out.println("Ошибка! Пароли не одинаковы!");
 					break;
 				}
-				listOfUsers.add(new User(nickName, password));
-				flag = false;
+				currentUser = new User(nickName, password);
+				listOfUsers.add(currentUser);
+				LogWriter.appendToFile("src/main/resources/userLog"," зарегистрировался ", currentUser);
 				break;
 		}
-		return flag;
+		return currentUser;
 	}
 
 	public static void menuText() {

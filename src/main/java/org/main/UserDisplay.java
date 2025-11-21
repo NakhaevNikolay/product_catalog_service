@@ -1,6 +1,5 @@
 package org.main;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -8,7 +7,7 @@ import java.util.Scanner;
 import static org.main.MerchandiseOperations.*;
 
 public class UserDisplay {
-	public static void userViewAddMerchandise(List<Merchandise> merchandises, Scanner scanner) {
+	public static void userViewAddMerchandise(List<Merchandise> merchandises, Scanner scanner, User currentUser) {
 		String name;
 		String brand;
 		double weight;
@@ -38,7 +37,10 @@ public class UserDisplay {
 		scanner.nextLine();
 
 		if(!addMerchandise(name,price, brand, weight, merchandises)){
-			System.out.println("Merchandise already exists");
+			System.out.println("Товар уже существует!");
+		} else {
+			LogWriter.appendToFile("src/main/resources/userLog", " добавил товар " + name, currentUser);
+			System.out.println("Товар успешно добавлен!");
 		}
 	}
 
@@ -86,20 +88,22 @@ public class UserDisplay {
 		}
 	}
 
-	public static void userViewDeleteMerchandise(List<Merchandise> merchandises, Scanner scanner) {
+	public static void userViewDeleteMerchandise(List<Merchandise> merchandises, Scanner scanner, User currentUser) {
 		System.out.print("Введите имя товара, который хотите удалить: ");
 		String name = scanner.nextLine();
 
 		if(deleteMerchandise(name, merchandises)){
 			System.out.println("Товар успешно удалён!");
+			LogWriter.appendToFile("src/main/resources/userLog", " удалил товар " + name, currentUser);
 		}
 	}
 
-	public static void userViewChangeMerchandise(List<Merchandise> merchandises, Scanner scanner) {
+	public static void userViewChangeMerchandise(List<Merchandise> merchandises, Scanner scanner, User currentUser) {
 		System.out.print("Введите имя товара, который хотите изменить: ");
 		String name = scanner.nextLine();
 
 		changeMerchandise(findMerchandiseByName(name,merchandises));
+		LogWriter.appendToFile("src/main/resources/userLog", " изменил товар " + name,  currentUser);
 	}
 
 	public static void showAllMerchandises(List<Merchandise> merchandises) {
