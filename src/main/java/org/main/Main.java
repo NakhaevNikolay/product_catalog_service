@@ -1,20 +1,11 @@
 package org.main;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.*;
 
 public class Main {
-	static Logger LOGGER;
-	static {
-		try(FileInputStream ins = new FileInputStream("src/main/resources/logger.config")){
-			LogManager.getLogManager().readConfiguration(ins);
-			LOGGER = Logger.getLogger(Main.class.getName());
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-	}
+	static final Logger LOGGER = LoggerUtil.getLogger(Main.class);
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
