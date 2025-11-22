@@ -18,10 +18,13 @@ public class MerchandiseOperations {
 		}
 		Merchandise newMerchandise = new Merchandise(merchandiseName, merchandisePrice, merchandiseBrand, merchandiseWeight);
 		merchandises.add(newMerchandise);
-		merchandiseHash.add(newMerchandise);
+		merchandiseHash.add(newMerchandise); //add merchandise in cash
 		return true;
 	}
 
+	/*
+	* support method to find merchandise exactly by name
+	 */
 	public static Merchandise findMerchandiseByName(String merchandiseName, List<Merchandise> merchandises) {
 		for (Merchandise merchandise : merchandises) {
 			if (merchandise.getName().equals(merchandiseName)) {
@@ -50,6 +53,10 @@ public class MerchandiseOperations {
 		return result;
 	}
 
+	/*
+	*support method to filter all DB or cash to find matching merchandises
+	* input parameters must be null if user don't indicate them in his request
+	 */
 	private static List<Merchandise> filterMerchandise(Collection<Merchandise> collection,
 													   String name,
 													   String brand,
@@ -75,7 +82,7 @@ public class MerchandiseOperations {
 			return;
 		}
 
-		merchandiseHash.remove(merchandise);
+		merchandiseHash.remove(merchandise); //firstly delete it from cash
 
 		System.out.println("Что вы хотите изменить?");
 		System.out.println("1) Имя \n2) Брэнд \n3) Цену \n4) Вес");
@@ -87,26 +94,22 @@ public class MerchandiseOperations {
 		switch (input) {
 			case 1:
 				System.out.print("Введите новое имя: ");
-				String merchandiseName = scanner.nextLine();
-				merchandise.setName(merchandiseName);
+				merchandise.setName(scanner.nextLine());
 				break;
 			case 2:
 				System.out.print("Введите новый брэнд: ");
-				String merchandiseBrand = scanner.nextLine();
-				merchandise.setBrand(merchandiseBrand);
+				merchandise.setBrand(scanner.nextLine());
 				break;
 			case 3:
 				System.out.print("Введите новую цену: ");
-				double merchandisePrice = scanner.nextDouble();
-				merchandise.setPrice(merchandisePrice);
+				merchandise.setPrice(scanner.nextDouble());
 				break;
 			case 4:
 				System.out.print("Введите новый вес: ");
-				double merchandiseWeight = scanner.nextDouble();
-				merchandise.setWeight(merchandiseWeight);
+				merchandise.setWeight(scanner.nextDouble());
 				break;
 		}
 
-		merchandiseHash.add(merchandise);
+		merchandiseHash.add(merchandise); //add new version of merchendise to cash
 	}
 }

@@ -9,13 +9,14 @@ public class Main {
 	static final Logger LOGGER = LoggerUtil.getLogger(Main.class);
 
 	public static void main(String[] args) {
+		//inits
 		Scanner scanner = new Scanner(System.in);
 		ArrayList<User> listOfUsers = (ArrayList<User>) DBImitatiom.loadArrayList("src/main/resources/usersDB");
 		ArrayList<Merchandise> listOfMerchandises =
 				(ArrayList<Merchandise>) DBImitatiom.loadArrayList("src/main/resources/dataBaseImitation");
-		HashSet<Merchandise> merchandisesHash = new HashSet<>();
+		HashSet<Merchandise> merchandisesHash = new HashSet<>(); //cash
 		User currentUser = new User("admin", "admin");
-
+		//login infinite while
 		boolean flag = true;
 		while (flag) {
 			UserMenu.loginMenu();
@@ -25,7 +26,7 @@ public class Main {
 				flag = false;
 			}
 		}
-
+		//menu infinite while
 		flag = true;
 		while (flag) {
 			UserMenu.menuText();

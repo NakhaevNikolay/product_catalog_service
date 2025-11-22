@@ -16,9 +16,9 @@ public class LoggerUtil {
 
 	public static void initializeLogger() {
 		if (init) {
-			return;
+			return;	//check if we already initialize logger
 		}
-
+		//configure logger
 		try (InputStream ins = getConfigInputStream()) {
 			LogManager.getLogManager().readConfiguration(ins);
 			init = true;
@@ -28,7 +28,7 @@ public class LoggerUtil {
 			init = true;
 		}
 	}
-
+	//method which return path to config file
 	private static InputStream getConfigInputStream() throws FileNotFoundException {
 		File configFile = new File("src/main/resources/logger.config");
 		if (configFile.exists()) {
@@ -39,12 +39,7 @@ public class LoggerUtil {
 	}
 
 	public static Logger getLogger(Class<?> clazz) {
-		initializeLogger();
+		initializeLogger();//check
 		return Logger.getLogger(clazz.getName());
-	}
-
-	public static Logger getLogger(String name) {
-		initializeLogger();
-		return Logger.getLogger(name);
 	}
 }

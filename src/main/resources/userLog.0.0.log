@@ -20,3 +20,23 @@ INFO: Логгер инициализирован
 INFO: Пользователь 111 вошёл в систему
 нояб. 22, 2025 12:33:18 PM org.main.UserMenu menuButtons
 INFO: Пользователь 111 вышел из системы
+нояб. 22, 2025 3:58:47 PM org.main.LoggerUtil initializeLogger
+INFO: Логгер инициализирован
+нояб. 22, 2025 3:58:52 PM org.main.UserMenu menuLogin
+INFO: Пользователь 111 вошёл в систему
+нояб. 22, 2025 3:59:10 PM org.main.UserDisplay userViewChangeMerchandise
+INFO: Пользователь 111 изменил товар 555
+нояб. 22, 2025 3:59:21 PM org.main.UserMenu menuButtons
+INFO: Пользователь 111 вышел из системы
+нояб. 22, 2025 4:04:51 PM org.main.LoggerUtil initializeLogger
+INFO: Логгер инициализирован
+нояб. 22, 2025 4:04:56 PM org.main.UserMenu menuLogin
+INFO: Пользователь 111 вошёл в систему
+нояб. 22, 2025 4:04:58 PM org.main.UserMenu menuButtons
+INFO: Пользователь 111 вышел из системы
+нояб. 22, 2025 4:14:53 PM org.main.LoggerUtil initializeLogger
+INFO: Логгер инициализирован
+нояб. 22, 2025 4:15:05 PM org.main.UserMenu menuLogin
+INFO: Пользователь 111 вошёл в систему
+нояб. 22, 2025 4:15:09 PM org.main.UserMenu menuButtons
+INFO: Пользователь 111 вышел из системы

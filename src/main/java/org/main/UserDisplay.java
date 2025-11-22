@@ -1,7 +1,6 @@
 package org.main;
 
 import java.util.*;
-import java.util.logging.Level;
 
 import static org.main.Main.LOGGER;
 import static org.main.MerchandiseOperations.*;
@@ -42,7 +41,7 @@ public class UserDisplay {
 		if (!addMerchandise(name, price, brand, weight, merchandises, merchandiseHash)) {
 			System.out.println("Товар уже существует!");
 		} else {
-			LOGGER.log(Level.INFO, "Пользователь " + currentUser.getNickName() + " добавил товар " + name);
+			LOGGER.info("Пользователь " + currentUser.getNickName() + " добавил товар " + name);
 			System.out.println("Товар успешно добавлен!");
 		}
 	}
@@ -103,7 +102,7 @@ public class UserDisplay {
 
 		if (deleteMerchandise(name, merchandises, merchandiseHash)) {
 			System.out.println("Товар успешно удалён!");
-			LOGGER.log(Level.INFO, "Пользователь " + currentUser.getNickName() + " удалил товар " + name);
+			LOGGER.info("Пользователь " + currentUser.getNickName() + " удалил товар " + name);
 		}
 	}
 
@@ -115,7 +114,7 @@ public class UserDisplay {
 		String name = scanner.nextLine();
 
 		changeMerchandise(findMerchandiseByName(name, merchandises), merchandiseHash);
-		LOGGER.log(Level.INFO, "Пользователь " + currentUser.getNickName() + " изменил товар " + name);
+		LOGGER.info("Пользователь " + currentUser.getNickName() + " изменил товар " + name);
 	}
 
 	public static void showAllMerchandises(List<Merchandise> merchandises) {
