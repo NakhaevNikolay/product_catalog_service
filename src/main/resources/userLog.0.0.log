@@ -1,0 +1,16 @@
+нояб. 22, 2025 12:46:40 AM org.main.UserMenu menuLogin
+INFO: Пользователь 111 вошёл в систему
+нояб. 22, 2025 12:46:41 AM org.main.UserMenu menuButtons
+INFO: Пользователь 111 вышел из системы
+нояб. 22, 2025 12:07:08 PM org.main.LoggerUtil initializeLogger
+INFO: Логгер инициализирован
+нояб. 22, 2025 12:07:17 PM org.main.UserMenu menuLogin
+INFO: Пользователь 111 вошёл в систему
+нояб. 22, 2025 12:07:19 PM org.main.UserMenu menuButtons
+INFO: Пользователь 111 вышел из системы
+нояб. 22, 2025 12:07:45 PM org.main.LoggerUtil initializeLogger
+INFO: Логгер инициализирован
+нояб. 22, 2025 12:07:51 PM org.main.UserMenu menuLogin
+INFO: Пользователь 333 зарегистрировался
+нояб. 22, 2025 12:07:53 PM org.main.UserMenu menuButtons
+INFO: Пользователь 333 вышел из системы
