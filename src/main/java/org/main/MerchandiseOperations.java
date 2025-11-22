@@ -1,7 +1,6 @@
 package org.main;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MerchandiseOperations {
@@ -10,13 +9,16 @@ public class MerchandiseOperations {
 										 double merchandisePrice,
 										 String merchandiseBrand,
 										 double merchandiseWeight,
-										 List<Merchandise> merchandises) {
+										 List<Merchandise> merchandises,
+										 HashSet<Merchandise> merchandiseHash) {
 		for (Merchandise merchandise : merchandises) {
 			if (merchandise.getName().equals(merchandiseName)) {
 				return false;
 			}
 		}
-		merchandises.add(new Merchandise(merchandiseName, merchandisePrice, merchandiseBrand, merchandiseWeight));
+		Merchandise newMerchandise = new Merchandise(merchandiseName, merchandisePrice, merchandiseBrand, merchandiseWeight);
+		merchandises.add(newMerchandise);
+		merchandiseHash.add(newMerchandise);
 		return true;
 	}
 
@@ -31,11 +33,29 @@ public class MerchandiseOperations {
 	}
 
 	public static List<Merchandise> findMerchandise(List<Merchandise> merchandises,
+													HashSet<Merchandise> merchandiseHash,
 													String name,
 													String brand,
 													Double minPrice,
 													Double maxPrice) {
-		return merchandises.stream()
+		//First check if it is in cash
+		List<Merchandise> result = filterMerchandise(merchandiseHash, name, brand, minPrice, maxPrice);
+		if (result.isEmpty()) {
+			//if not search all DB
+			result = filterMerchandise(merchandises, name, brand, minPrice, maxPrice);
+			//and add it to cash
+			merchandiseHash.addAll(result);
+		}
+
+		return result;
+	}
+
+	private static List<Merchandise> filterMerchandise(Collection<Merchandise> collection,
+													   String name,
+													   String brand,
+													   Double minPrice,
+													   Double maxPrice) {
+		return collection.stream()
 				.filter(m -> name == null || m.getName().equals(name))
 				.filter(m -> brand == null || m.getBrand().equals(brand))
 				.filter(m -> minPrice == null || m.getPrice() >= minPrice)
@@ -43,14 +63,19 @@ public class MerchandiseOperations {
 				.collect(Collectors.toList());
 	}
 
-	public static boolean deleteMerchandise(String merchandiseName, List<Merchandise> merchandises) {
+	public static boolean deleteMerchandise(String merchandiseName,
+											List<Merchandise> merchandises,
+											HashSet<Merchandise> merchandiseHash) {
+		merchandiseHash.remove(findMerchandiseByName(merchandiseName, merchandises)); // Delete from cash
 		return merchandises.remove(findMerchandiseByName(merchandiseName, merchandises));
 	}
 
-	public static void changeMerchandise(Merchandise merchandise) {
+	public static void changeMerchandise(Merchandise merchandise, HashSet<Merchandise> merchandiseHash) {
 		if (merchandise == null) {
 			return;
 		}
+
+		merchandiseHash.remove(merchandise);
 
 		System.out.println("Что вы хотите изменить?");
 		System.out.println("1) Имя \n2) Брэнд \n3) Цену \n4) Вес");
@@ -81,5 +106,7 @@ public class MerchandiseOperations {
 				merchandise.setWeight(merchandiseWeight);
 				break;
 		}
+
+		merchandiseHash.add(merchandise);
 	}
 }

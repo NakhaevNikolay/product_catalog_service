@@ -1,5 +1,6 @@
 package org.main;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -7,30 +8,33 @@ import java.util.logging.Level;
 import static org.main.Main.LOGGER;
 
 public class UserMenu {
-	public static boolean menuButtons(List<Merchandise> listOfMerchandises, Scanner scanner, User currentUser) {
+	public static boolean menuButtons(List<Merchandise> listOfMerchandises,
+									  HashSet<Merchandise> merchandiseHash,
+									  Scanner scanner,
+									  User currentUser) {
 		boolean flag = true;
 		int input = scanner.nextInt();
 		scanner.nextLine();
 
 		switch (input) {
 			case 1:
-				UserDisplay.userViewAddMerchandise(listOfMerchandises, scanner, currentUser);
+				UserDisplay.userViewAddMerchandise(listOfMerchandises, scanner, currentUser, merchandiseHash);
 				break;
 			case 2:
-				UserDisplay.userViewDeleteMerchandise(listOfMerchandises, scanner, currentUser);
+				UserDisplay.userViewDeleteMerchandise(listOfMerchandises, scanner, currentUser, merchandiseHash);
 				break;
 			case 3:
-				UserDisplay.userViewChangeMerchandise(listOfMerchandises, scanner, currentUser);
+				UserDisplay.userViewChangeMerchandise(listOfMerchandises, scanner, currentUser, merchandiseHash);
 				break;
 			case 4:
-				UserDisplay.userViewFindMerchandise(listOfMerchandises, scanner);
+				UserDisplay.userViewFindMerchandise(listOfMerchandises, merchandiseHash, scanner);
 				break;
 			case 100:
 				UserDisplay.showAllMerchandises(listOfMerchandises);
 				break;
 			case 0:
 				flag = false;
-				LOGGER.log(Level.INFO,"Пользователь " + currentUser.getNickName() + " вышел из системы");
+				LOGGER.log(Level.INFO, "Пользователь " + currentUser.getNickName() + " вышел из системы");
 				break;
 			default:
 				System.out.println("Error");
@@ -57,7 +61,7 @@ public class UserMenu {
 					if (user.getPassword().equals(password) && user.getNickName().equals(nickName)) {
 						System.out.println("Авторизация успешна!");
 						currentUser = user;
-						LOGGER.log(Level.INFO,"Пользователь " + currentUser.getNickName() + " вошёл в систему");
+						LOGGER.log(Level.INFO, "Пользователь " + currentUser.getNickName() + " вошёл в систему");
 						break;
 					}
 				}
@@ -75,11 +79,13 @@ public class UserMenu {
 				for (User user : listOfUsers) {
 					if (user.getNickName().equals(nickName)) {
 						System.out.println("Такой логин уже существует!");
-						n =  true;
+						n = true;
 						break;
 					}
 				}
-				if (n) {break;}
+				if (n) {
+					break;
+				}
 				System.out.print("Придумайте пароль: ");
 				password = scanner.nextLine();
 				System.out.print("Повторите пароль: ");
@@ -90,7 +96,7 @@ public class UserMenu {
 				}
 				currentUser = new User(nickName, password);
 				listOfUsers.add(currentUser);
-				LOGGER.log(Level.INFO,"Пользователь " + currentUser.getNickName() + " зарегистрировался");
+				LOGGER.log(Level.INFO, "Пользователь " + currentUser.getNickName() + " зарегистрировался");
 				break;
 		}
 		return currentUser;

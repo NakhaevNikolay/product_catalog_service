@@ -14,3 +14,9 @@ INFO: Логгер инициализирован
 INFO: Пользователь 333 зарегистрировался
 нояб. 22, 2025 12:07:53 PM org.main.UserMenu menuButtons
 INFO: Пользователь 333 вышел из системы
+нояб. 22, 2025 12:33:11 PM org.main.LoggerUtil initializeLogger
+INFO: Логгер инициализирован
+нояб. 22, 2025 12:33:16 PM org.main.UserMenu menuLogin
+INFO: Пользователь 111 вошёл в систему
+нояб. 22, 2025 12:33:18 PM org.main.UserMenu menuButtons
+INFO: Пользователь 111 вышел из системы

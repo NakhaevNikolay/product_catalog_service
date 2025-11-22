@@ -1,15 +1,16 @@
 package org.main;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.logging.Level;
 
 import static org.main.Main.LOGGER;
 import static org.main.MerchandiseOperations.*;
 
 public class UserDisplay {
-	public static void userViewAddMerchandise(List<Merchandise> merchandises, Scanner scanner, User currentUser) {
+	public static void userViewAddMerchandise(List<Merchandise> merchandises,
+											  Scanner scanner,
+											  User currentUser,
+											  HashSet<Merchandise> merchandiseHash) {
 		String name;
 		String brand;
 		double weight;
@@ -38,15 +39,17 @@ public class UserDisplay {
 		System.out.println("------------");
 		scanner.nextLine();
 
-		if(!addMerchandise(name,price, brand, weight, merchandises)){
+		if (!addMerchandise(name, price, brand, weight, merchandises, merchandiseHash)) {
 			System.out.println("Товар уже существует!");
 		} else {
-			LOGGER.log(Level.INFO,"Пользователь " + currentUser.getNickName() + " добавил товар " + name);
+			LOGGER.log(Level.INFO, "Пользователь " + currentUser.getNickName() + " добавил товар " + name);
 			System.out.println("Товар успешно добавлен!");
 		}
 	}
 
-	public static void userViewFindMerchandise(List<Merchandise> merchandises, Scanner scanner) {
+	public static void userViewFindMerchandise(List<Merchandise> merchandises,
+											   HashSet<Merchandise> merchandiseHash,
+											   Scanner scanner) {
 		Double maxPrice = null;
 		Double minPrice = null;
 		String name = null;
@@ -78,11 +81,12 @@ public class UserDisplay {
 			System.out.println("Ошибка ввода!");
 			return;
 		}
-		List<Merchandise> merchandisesLookingFor = MerchandiseOperations.findMerchandise(merchandises, name, brand, minPrice, maxPrice);
+		List<Merchandise> merchandisesLookingFor =
+				MerchandiseOperations.findMerchandise(merchandises, merchandiseHash, name, brand, minPrice, maxPrice);
 
-		if(!merchandisesLookingFor.isEmpty()){
+		if (!merchandisesLookingFor.isEmpty()) {
 			System.out.println("Искомые товары: ");
-			for(Merchandise merchandise : merchandisesLookingFor){
+			for (Merchandise merchandise : merchandisesLookingFor) {
 				merchandise.display();
 			}
 		} else {
@@ -90,27 +94,33 @@ public class UserDisplay {
 		}
 	}
 
-	public static void userViewDeleteMerchandise(List<Merchandise> merchandises, Scanner scanner, User currentUser) {
+	public static void userViewDeleteMerchandise(List<Merchandise> merchandises,
+												 Scanner scanner,
+												 User currentUser,
+												 HashSet<Merchandise> merchandiseHash) {
 		System.out.print("Введите имя товара, который хотите удалить: ");
 		String name = scanner.nextLine();
 
-		if(deleteMerchandise(name, merchandises)){
+		if (deleteMerchandise(name, merchandises, merchandiseHash)) {
 			System.out.println("Товар успешно удалён!");
-			LOGGER.log(Level.INFO,"Пользователь " + currentUser.getNickName() + " удалил товар " + name);
+			LOGGER.log(Level.INFO, "Пользователь " + currentUser.getNickName() + " удалил товар " + name);
 		}
 	}
 
-	public static void userViewChangeMerchandise(List<Merchandise> merchandises, Scanner scanner, User currentUser) {
+	public static void userViewChangeMerchandise(List<Merchandise> merchandises,
+												 Scanner scanner,
+												 User currentUser,
+												 HashSet<Merchandise> merchandiseHash) {
 		System.out.print("Введите имя товара, который хотите изменить: ");
 		String name = scanner.nextLine();
 
-		changeMerchandise(findMerchandiseByName(name,merchandises));
-		LOGGER.log(Level.INFO,"Пользователь " + currentUser.getNickName() + " изменил товар " + name);
+		changeMerchandise(findMerchandiseByName(name, merchandises), merchandiseHash);
+		LOGGER.log(Level.INFO, "Пользователь " + currentUser.getNickName() + " изменил товар " + name);
 	}
 
 	public static void showAllMerchandises(List<Merchandise> merchandises) {
 		System.out.println("Все товары: ");
-		for(Merchandise merchandise : merchandises){
+		for (Merchandise merchandise : merchandises) {
 			merchandise.display();
 		}
 	}

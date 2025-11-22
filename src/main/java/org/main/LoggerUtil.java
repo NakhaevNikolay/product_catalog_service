@@ -35,12 +35,6 @@ public class LoggerUtil {
 			return new FileInputStream(configFile);
 		}
 
-		InputStream ins = LoggerUtil.class.getClassLoader().getResourceAsStream("logger.config");
-
-		if (ins != null) {
-			return ins;
-		}
-
 		throw new FileNotFoundException("Файл конфигурации логгера не найден");
 	}
 

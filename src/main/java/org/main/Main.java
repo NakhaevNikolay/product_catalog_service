@@ -1,8 +1,9 @@
 package org.main;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 public class Main {
 	static final Logger LOGGER = LoggerUtil.getLogger(Main.class);
@@ -10,8 +11,10 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		ArrayList<User> listOfUsers = (ArrayList<User>) DBImitatiom.loadArrayList("src/main/resources/usersDB");
-		ArrayList<Merchandise> listOfMerchandises = (ArrayList<Merchandise>) DBImitatiom.loadArrayList("src/main/resources/dataBaseImitation");
-		User currentUser = new User("admin","admin");
+		ArrayList<Merchandise> listOfMerchandises =
+				(ArrayList<Merchandise>) DBImitatiom.loadArrayList("src/main/resources/dataBaseImitation");
+		HashSet<Merchandise> merchandisesHash = new HashSet<>();
+		User currentUser = new User("admin", "admin");
 
 		boolean flag = true;
 		while (flag) {
@@ -26,7 +29,7 @@ public class Main {
 		flag = true;
 		while (flag) {
 			UserMenu.menuText();
-			flag = UserMenu.menuButtons(listOfMerchandises,scanner, currentUser);
+			flag = UserMenu.menuButtons(listOfMerchandises, merchandisesHash, scanner, currentUser);
 		}
 
 		DBImitatiom.saveArrayList(listOfMerchandises, "src/main/resources/dataBaseImitation");
